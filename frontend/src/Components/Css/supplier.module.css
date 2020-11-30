@@ -1,0 +1,10 @@
+.tr:hover{
+    color: blue;
+    background-color: chartreuse;
+}
+.container{
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+.error{
+    border-color: red;
+}

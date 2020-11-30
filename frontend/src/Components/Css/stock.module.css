@@ -1,0 +1,15 @@
+.thead{
+    background-color: rgb(231, 83, 29);
+    color: white;
+}
+.bg{
+    background-color: wheat;
+}
+.tbody{
+    background-color:white;
+    color:black;
+}
+.tr:hover{
+    background-color: aqua;
+    color: blue;
+}

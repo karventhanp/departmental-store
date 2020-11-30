@@ -1,0 +1,6 @@
+step 1 : mkdir backend
+
+step 2 : npm init -y (create json file)
+
+step 3: npm install express --save
+
