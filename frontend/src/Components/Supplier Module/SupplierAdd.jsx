@@ -15,7 +15,7 @@ class SupplierAdd extends Component {
     }
     handleChange = (e) => {
         this.setState({
-            [e.target.name]: e.target.value.toLowerCase()
+            [e.target.name]: e.target.value
         });
     }
     handleSubmit = (e) => {

@@ -368,8 +368,13 @@ app.post('/addtostock', (req, res) => {
                         const sqlInsert1 = "INSERT INTO stock_size(product_id,product_size,quantity,amount,per_quantity,date_of_purchase)VALUES(?,?,?,?,?,?)";
                         conn.query(sqlInsert1, [product_id, product_size, quantity, amount, per_quantity, todaydate], (error, results) => {
                             if (!error) {
-                                const sqlInsert2 = "INSERT INTO purchase_data(product_id,product_name,product_size,quantity,amount,supplier_name,date_of_purchase)VALUES(?,?,?,?,?,?,?)";
-                                conn.query(sqlInsert2, [product_id, product_name, purchasedata_size, purchasedata_quantity, amount, supplier_name, todaydate], (error, results) => {
+                                let xyz3=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+                                const xyz=new Date();
+                                let xyz1=xyz.getMonth();
+                                const xyz4=xyz3[xyz1];
+                                const xyz2=xyz.getFullYear();
+                                const sqlInsert2 = "INSERT INTO purchase_data(product_id,product_name,product_size,quantity,amount,supplier_name,date_of_purchase,month,year)VALUES(?,?,?,?,?,?,?,?,?)";
+                                conn.query(sqlInsert2, [product_id, product_name, purchasedata_size, purchasedata_quantity, amount, supplier_name, todaydate,xyz4,xyz2], (error, results) => {
                                     if (!error) {
                                         if (product_size === 'Number of items') {
                                             sqlDelete = "DELETE FROM purchase_cart WHERE product_id=? AND date_of_order=?";
@@ -618,8 +623,13 @@ app.post('/payment', (req, res) => {
                         conn.query(sqlSelect, (error, resultss) => {
                             if (!error) {
                                 resultss.map(i => {
-                                    const sqlInsert1 = "INSERT INTO customer_products(cus_id,product_id,product_name,product_size,quantity,amount)VALUES(?,?,?,?,?,?)";
-                                    conn.query(sqlInsert1, [id, i.product_id, i.product_name, i.product_size, i.product_quantity, i.product_amount], (error, results) => {
+                                    let xyz=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+                                    const xyz1=new Date();
+                                    let xyz2=xyz1.getMonth();
+                                    const xyz3=xyz[xyz2];
+                                    const xyz4=xyz1.getFullYear();
+                                    const sqlInsert1 = "INSERT INTO customer_products(cus_id,product_id,product_name,product_size,quantity,amount,month,year)VALUES(?,?,?,?,?,?,?,?)";
+                                    conn.query(sqlInsert1, [id, i.product_id, i.product_name, i.product_size, i.product_quantity, i.product_amount,xyz3,xyz4], (error, results) => {
                                         if (!error) {
                                             const datess = new Date(i.size_date).toLocaleDateString('sv-SE');
                                             const sqlUpdates = "SELECT id,quantity,amount FROM stock_size WHERE product_id=? AND product_size=? AND date_of_purchase=?";
@@ -1022,6 +1032,153 @@ app.post('/login',(req,res)=>{
             }
         }
         
+    });
+});
+
+//Reports
+
+app.get('/productreport',(req,res)=>{
+    const sqlSelect="SELECT * FROM product_list INNER JOIN product_size ON product_list.product_id=product_size.product_id";
+    conn.query(sqlSelect,(error,results)=>{
+        if(error)
+        console.log(error);
+        else
+        res.send(results);
+    })
+});
+
+app.get('/customerreport',(req,res)=>{
+    const sqlSelect="SELECT * FROM customer GROUP BY cus_phno ORDER BY cus_id";
+    conn.query(sqlSelect,(error,results)=>{
+        if(error)
+        console.log(error);
+        else
+        res.send(results);
+    });
+});
+
+app.post('/customerreportsearch',(req,res)=>{
+    let name=req.body.name;
+    const sqlSelect="SELECT * FROM customer WHERE cus_name LIKE ? GROUP BY cus_phno ORDER BY cus_id";
+    conn.query(sqlSelect,'%'+name+'%',(error,results)=>{
+        if(error)
+        console.log(error);
+        else
+        res.send(results);
+    });
+});
+
+app.get('/employeereport',(req,res)=>{
+    const sqlSelect="SELECT * FROM employee ORDER BY emp_id";
+    conn.query(sqlSelect,(error,results)=>{
+        if(error)
+        console.log(error);
+        else
+        res.send(results);
+    });
+});
+
+app.post('/employeereportsearch',(req,res)=>{
+    let name=req.body.name;
+    const sqlSelect="SELECT * FROM employee WHERE emp_name LIKE ? ORDER BY emp_id";
+    conn.query(sqlSelect,'%'+name+'%',(error,results)=>{
+        if(error)
+        console.log(error);
+        else
+        res.send(results);
+    });
+});
+
+app.get('/stockreport',(req,res)=>{
+    const sqlSelect="SELECT * FROM stock INNER JOIN stock_size ON stock.product_id=stock_size.product_id ORDER BY stock.product_id";
+    conn.query(sqlSelect,(error,results)=>{
+        if(error)
+        console.log(error);
+        else
+        res.send(results);
+    });
+});
+
+app.post('/stockreportsearch',(req,res)=>{
+    const name=req.body.name;
+    const sqlSelect="SELECT * FROM stock INNER JOIN stock_size ON stock.product_id=stock_size.product_id WHERE stock.product_name LIKE ? ORDER BY stock.product_id ";
+    conn.query(sqlSelect,'%'+name+'%',(error,results)=>{
+        if(error)
+        console.log(error);
+        else
+        res.send(results);
+    });
+});
+
+app.get('/preportmonth',(req,res)=>{
+    const sqlSelect="SELECT DISTINCT month FROM purchase_data";
+    conn.query(sqlSelect,(error,results)=>{
+        if(error)
+        console.log(error);
+        else
+        res.send(results);
+    });
+});
+
+app.get('/preportyear',(req,res)=>{
+    const sqlSelect="SELECT DISTINCT year FROM purchase_data";
+    conn.query(sqlSelect,(error,results)=>{
+        if(error)
+        console.log(error);
+        else
+        res.send(results);
+    });
+});
+
+app.post('/preport',(req,res)=>{
+    const {month,year}=req.body;
+    const sqlSelect="SELECT * FROM purchase_data WHERE month=? AND year=?";
+    conn.query(sqlSelect,[month,year],(error,results)=>{
+        if(error)
+        console.log(error);
+        else
+        res.send(results);
+    });
+});
+
+app.get('/sreportmonth',(req,res)=>{
+   const sqlSelect="SELECT DISTINCT month FROM customer_products";
+   conn.query(sqlSelect,(error,results)=>{
+       if(error)
+       console.log(error);
+       else
+       res.send(results);
+   });
+});
+
+app.get('/sreportyear',(req,res)=>{
+    const sqlSelect="SELECT DISTINCT year FROM customer_products";
+    conn.query(sqlSelect,(error,results)=>{
+        if(error)
+        console.log(error);
+        else
+        res.send(results);
+    });
+});
+
+app.post('/sreport',(req,res)=>{
+    const {month,year}=req.body;
+    const sqlSelect="SELECT * FROM customer_products WHERE month=? AND year=?";
+    conn.query(sqlSelect,[month,year],(error,results)=>{
+        if(error)
+        console.log(error);
+        else
+        res.send(results);
+    });
+});
+
+app.get('/returnreport',(req,res)=>{
+    const sqlSelect="SELECT * FROM return_products";
+    conn.query(sqlSelect,(error,results)=>{
+        if(error)
+        console.log(error);
+        else
+        res.send(results);
     });
 });
 

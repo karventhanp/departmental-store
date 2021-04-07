@@ -23,6 +23,15 @@ import Employee from './Components/Account Module/Employee';
 import Expenses from './Components/Account Module/Expenses';
 import Login from './Components/Login';
 import Logout from './Components/Logout';
+import NotFound from './Components/NotFound';
+import Reports from './Components/Reports/Reports';
+import Productreport from './Components/Reports/Productreport';
+import Customerreport from './Components/Reports/Customerreport';
+import Employeereport from './Components/Reports/Employeereport';
+import Stockreport from './Components/Reports/Stockreport';
+import Purchasereport from './Components/Reports/Purchasereport';
+import Salesreport from './Components/Reports/Salesreport';
+import Returnreport from './Components/Reports/Returnreport';
 class App extends Component {
   state = {
     supplier: {},
@@ -61,47 +70,47 @@ class App extends Component {
             <Route path='/' exact><Home /></Route>
             <Route path='/supplier'>
               {
-                isLoggedin ? <Supplier passSupplierdata={this.supplierData} /> : <Redirect to='/login' />
+                isLoggedin ? <Supplier passSupplierdata={this.supplierData} /> : <h4 className='text-warning text-center mt-5'>Login to Continue !</h4>
               }
             </Route>
             <Route path='/supplieredit'>
               {
-                isLoggedin ? <SupplierEdit supplierData={this.state.supplier} /> : <Redirect to='/login' />
+                isLoggedin ? <SupplierEdit supplierData={this.state.supplier} /> : <h4 className='text-warning text-center mt-5'>Login to Continue !</h4>
               }
             </Route>
             <Route path='/supplieradd'>
               {
-                isLoggedin ? <SupplierAdd /> : <Redirect to='/login' />
+                isLoggedin ? <SupplierAdd /> : <h4 className='text-warning text-center mt-5'>Login to Continue !</h4>
               }
             </Route>
             <Route path='/purchase'>
               {
-                isLoggedin ? <Purchase getProductId={this.getProductId} /> : <Redirect to='/login' />
+                isLoggedin ? <Purchase getProductId={this.getProductId} /> : <h4 className='text-warning text-center mt-5'>Login to Continue !</h4>
               }              
             </Route>
             <Route path='/addproducts'>
               {
-                isLoggedin ? <PurchaseAdd /> : <Redirect to='/login' />
+                isLoggedin ? <PurchaseAdd /> : <h4 className='text-warning text-center mt-5'>Login to Continue !</h4>
               }
             </Route>
             <Route path='/purchaseorder'>
               {
-                isLoggedin ? <PurchaseOrder /> : <Redirect to='/login' />
+                isLoggedin ? <PurchaseOrder /> : <h4 className='text-warning text-center mt-5'>Login to Continue !</h4>
               }
               </Route>
             <Route path='/purchaseedit'>
               {
-                isLoggedin ? <PurchaseEdit productId={this.state.purchase_pid} /> :<Redirect to='/login' />
+                isLoggedin ? <PurchaseEdit productId={this.state.purchase_pid} /> :<h4 className='text-warning text-center mt-5'>Login to Continue !</h4>
               }              
             </Route>
             <Route path='/fixamount'>
               {
-                isLoggedin ? <FixAmount /> : <Redirect to='/login' />
+                isLoggedin ? <FixAmount /> : <h4 className='text-warning text-center mt-5'>Login to Continue !</h4>
               }
               </Route>
             <Route path='/stock'>
               {
-                isLoggedin ? <Stock getStockMoreId={this.getStockMoreId} /> : <Redirect to='/login' />
+                isLoggedin ? <Stock getStockMoreId={this.getStockMoreId} /> : <h4 className='text-warning text-center mt-5'>Login to Continue !</h4>
               }              
             </Route>
             <Route path='/stockmore'>
@@ -109,7 +118,7 @@ class App extends Component {
                 isLoggedin ? <StockMore
                               passStockMoreId={this.state.stockmore_id}
                               passStockMoreName={this.state.stockmore_name}
-                              />                                              : <Redirect to='/login' />
+                              />                                              : <h4 className='text-warning text-center mt-5'>Login to Continue !</h4>
               }              
             </Route>
             <Route path='/sales'><Sales /></Route>
@@ -120,18 +129,58 @@ class App extends Component {
             <Route path='/sreturn'><Sreturn /></Route>
             <Route path='/account'>
               {
-                isLoggedin ? <Account /> : <Redirect to='/login' />
+                isLoggedin ? <Account /> : <h4 className='text-warning text-center mt-5'>Login to Continue !</h4>
               }
               </Route>
             <Route path='/employee'>
               {
-                isLoggedin ? <Employee /> : <Redirect to='/login' />
+                isLoggedin ? <Employee /> : <h4 className='text-warning text-center mt-5'>Login to Continue !</h4>
               }
               </Route>
             <Route path='/expenses'>
               {
-                isLoggedin ? <Expenses /> : <Redirect to='/login' />
+                isLoggedin ? <Expenses /> : <h4 className='text-warning text-center mt-5'>Login to Continue !</h4>
               }
+              </Route>
+              <Route path='/reports'>
+                {
+                  isLoggedin ? <Reports /> : <h4 className='text-warning text-center mt-5'>Login to Continue !</h4>
+                }
+              </Route>
+              <Route path='/productreport'>
+                {
+                  isLoggedin ? <Productreport /> : <h4 className='text-warning text-center mt-5'>Login to Continue !</h4>
+                }
+              </Route>
+              <Route path='/customerreport'>
+                {
+                  isLoggedin ? <Customerreport /> : <h4 className='text-warning text-center mt-5'>Login to Continue !</h4>
+                }
+              </Route>
+              <Route path='/employeereport'>
+                {
+                  isLoggedin ? <Employeereport /> : <h4 className='text-warning text-center mt-5'>Login to Continue !</h4>
+                }
+              </Route>
+              <Route path='/stockreport'>
+                {
+                  isLoggedin ? <Stockreport /> : <h4 className='text-warning text-center mt-5'>Login to Continue !</h4>
+                }
+              </Route>
+              <Route path='/salesreport'>
+                {
+                  isLoggedin ? <Salesreport /> : <h4 className='text-warning text-center mt-5'>Login to Continue !</h4>
+                }
+              </Route>
+              <Route path='/purchasereport'>
+                {
+                  isLoggedin ? <Purchasereport /> : <h4 className='text-warning text-center mt-5'>Login to Continue !</h4>
+                }
+              </Route>
+              <Route path='/returnreport'>
+                {
+                  isLoggedin ? <Returnreport /> : <h4 className='text-warning text-center mt-5'>Login to Continue !</h4>
+                }
               </Route>
             <Route path='/login'>
               {
@@ -142,6 +191,9 @@ class App extends Component {
               {
                 isLoggedin ? <Logout /> : <Redirect to='/login' />
               }
+            </Route>
+            <Route>
+              <NotFound/>
             </Route>
           </Switch>
         </React.Fragment>

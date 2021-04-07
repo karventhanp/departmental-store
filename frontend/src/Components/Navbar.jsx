@@ -41,16 +41,19 @@ class Navbar extends Component {
                             <Link to='/stock' className='nav-link'>StockDetails</Link>
                         </li>
                         <li className="nav-item">
-                            <Link to='/sales' className='nav-link'>Sales and Billing</Link>
+                            <Link to='/sales' className='nav-link'>Sales&Billing</Link>
                         </li>
                         <li className="nav-item">
-                            <Link to='/cart' className='nav-link'>Cart Details</Link>
+                            <Link to='/cart' className='nav-link'>CartDetails</Link>
                         </li>
                         <li className="nav-item">
-                            <Link to='/return' className='nav-link'>Purchase and Sales Return</Link>
+                            <Link to='/return' className='nav-link'>Purchase&SalesReturn</Link>
                         </li>
                         <li className="nav-item">
-                            <Link to='/account' className='nav-link'>Account Maintenance</Link>
+                            <Link to='/account' className='nav-link'>AccountMaintenance</Link>
+                        </li>
+                        <li className="nav-item">
+                            <Link to='/reports' className='nav-link'>Reports</Link>
                         </li>
                         <li className="nav-item pl-5">
                             {
